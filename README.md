@@ -1,6 +1,8 @@
 # LightningZoom
 Better interface for managing Zoom meetings
 
+Platform: Windows, .NET.    Tested on Windows 7 and 10
+
 LightningZoom is meant to replace the current Zoom interface for easier access to multiple meetings. This is achieved by a tool that stores information about meetings and can launch Zoom directly into the meeting in a variety of ways.
 
 ![image](https://user-images.githubusercontent.com/81046437/111885775-4c21fa80-89a0-11eb-90b0-ab76624ee0ec.png)
@@ -17,6 +19,6 @@ In the Main tab you can start a selected meeting or just quick start the next on
 
 ![image](https://user-images.githubusercontent.com/81046437/111885119-1b3fc680-899c-11eb-9440-f7741f449615.png)
 
-LightningZoom contains many checks and balances and data validation just try and break it. And let me know if you succeed and how.
+LightningZoom contains many checks and balances and data validation - just try and break it. And let me know if you succeed and how. Contact me at jonathan.rabideau@gmail.com or post to this project.
 
 LightningZoom is meant to spread happiness and cheer, Copyright Jonathan Rabideau 2021 under GNU General Public License v3
