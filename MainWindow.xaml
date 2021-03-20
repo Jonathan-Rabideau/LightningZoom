@@ -1,0 +1,89 @@
+﻿<Window x:Class="LightningZoom.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LightningZoom"
+        mc:Ignorable="d"
+        Title="LightningZoom" Height="278" Width="435">
+    <Window.Resources>
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Value="#FF3399FF" Property="Background" />
+                                <Setter Value="White" Property="Foreground" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                        <Border Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="grdWrapper" Background="Silver" LayoutUpdated="grdWrapper_LayoutUpdated">
+        <ListBox x:Name="list" Margin="10,10,0,0" HorizontalAlignment="Left" Width="140" Height="213" VerticalAlignment="Top" SelectionChanged="List_SelectionChanged"/>
+        <Label x:Name="lblError" Content=""  Margin="0,221,0,0" VerticalAlignment="Top" Height="19" Padding="15,0" FontStyle="Italic" Foreground="Red"/>
+        <TabControl HorizontalAlignment="Left" Height="213" Margin="155,10,0,0" VerticalAlignment="Top" Width="262">
+            <TabItem Header="Main">
+                <Grid Background="Silver">
+                    <Button x:Name="btnLaunch" Content="Launch" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="58" Click="BtnLaunch_Click"/>
+                    <Button x:Name="btnQuickLanch" Content="Launch Next" HorizontalAlignment="Left" Margin="73,10,0,0" VerticalAlignment="Top" Width="78" Click="BtnQuickLanch_Click"/>
+                    <Button x:Name="btnHide" Content="Hide" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Width="58" Click="BtnHide_Click"/>
+                    <CheckBox x:Name="chkLH" Content="Launch and Hide" HorizontalAlignment="Left" Margin="11,37,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="chkStartHidden" Content="Start Hidden" HorizontalAlignment="Left" Margin="11,97,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="chkSaveClose" Content="Auto Save on Close" HorizontalAlignment="Left" Margin="11,155,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top" Width="58" Click="BtnSave_Click" BorderBrush="Gray" BorderThickness="2" ToolTip="When green there are changes to save to a file"/>
+                    <ScrollBar HorizontalAlignment="Left" Height="36" Margin="134,122,0,0" VerticalAlignment="Top" ValueChanged="ScrollBar_ValueChanged" SmallChange="1" Minimum="-1" ToolTip="Shift event in list up or down"/>
+                    <Label Content="Reorder" HorizontalAlignment="Left" Margin="83,126,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Edit">
+                <Grid Background="Silver">
+                    <CheckBox x:Name="chkRepeat" Content="Repeat" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="79" ToolTip="If it autostarts and this is off, it will uncheck the day below"/>
+                    <CheckBox x:Name="chkSun" Content="Sunday" HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top" Width="79"/>
+                    <CheckBox x:Name="chkMon" Content="Monday" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Width="79"/>
+                    <CheckBox x:Name="chkTue" Content="Tuesday" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" Width="79"/>
+                    <CheckBox x:Name="chkWed" Content="Wednesday" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="chkThr" Content="Thursday" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="79"/>
+                    <CheckBox x:Name="chkFri" Content="Friday" HorizontalAlignment="Left" Margin="10,112,0,0" VerticalAlignment="Top" Width="79"/>
+                    <CheckBox x:Name="chkSat" Content="Saturday" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top" Width="79"/>
+                    <Label Content="Event" HorizontalAlignment="Left" Margin="101,5,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtName" HorizontalAlignment="Left" Height="23" Margin="138,7,0,0" Text="" VerticalAlignment="Top" Width="104"/>
+                    <TextBox x:Name="txtStartTime" HorizontalAlignment="Left" Height="23" Margin="135,33,0,0" Text="" VerticalAlignment="Top" Width="45" BorderBrush="LightGray" BorderThickness="2" TextChanged="TimeOnly" ToolTip="Time, e.g. 1pm, 7:15 am, 1620, 8 (defaults to am)"/>
+                    <TextBox x:Name="txtEndTime" HorizontalAlignment="Left" Height="23" Margin="198,33,0,0" Text="" VerticalAlignment="Top" Width="45" BorderBrush="LightGray" BorderThickness="2" TextChanged="TimeOnly" ToolTip="Time, e.g. 3: 17 pm, 4:59 am, 900, 11:30 (defaults to am)"/>
+                    <TextBox x:Name="txtAutoStart" HorizontalAlignment="Left" Height="23" Margin="175,57,0,0" Text="5" VerticalAlignment="Top" Width="24" IsEnabled="False" PreviewTextInput="NumbersOnly"/>
+                    <Label Content="From" HorizontalAlignment="Left" Margin="101,30,0,0" VerticalAlignment="Top"/>
+                    <Label Content="To" HorizontalAlignment="Left" Margin="177,31,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="chkAutoStart" Content="Autostart" HorizontalAlignment="Left" Margin="104,60,0,0" VerticalAlignment="Top" Checked="ChkAutoStart_Checked" Unchecked="ChkAutoStart_Unchecked" ToolTip="Whether LightningZoom will launch Zoom for you"/>
+                    <Label Content="Minutes Early" HorizontalAlignment="Left" Margin="101,70,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Zoom Code" HorizontalAlignment="Left" Margin="101,97,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtZoomCode" HorizontalAlignment="Left" Height="23" Margin="175,98,0,0" Text="" VerticalAlignment="Top" Width="67" PreviewTextInput="NumbersOnly"/>
+                    <CheckBox x:Name="chkPassCode" Content="Passcode" HorizontalAlignment="Left" Margin="104,128,0,0" VerticalAlignment="Top" Checked="ChkPassCode_Checked" Unchecked="ChkPassCode_Unchecked" ToolTip="Whether the link requires a passcode"/>
+                    <TextBox x:Name="txtPasscode" HorizontalAlignment="Left" Height="23" Margin="175,124,0,0" Text="" VerticalAlignment="Top" Width="67" IsEnabled="False" />
+                    <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="87,152,0,0" VerticalAlignment="Top" Width="32" Click="BtnAdd_Click" ToolTip="Add new event to the list"/>
+                    <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="124,152,0,0" VerticalAlignment="Top" Width="44" Click="BtnDelete_Click" ToolTip="Delete selected event"/>
+                    <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="32,152,0,0" VerticalAlignment="Top" Width="50" Click="BtnUpdate_Click" ToolTip="Update event with new data"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Info">
+                <Grid Background="Silver">
+                    <Label x:Name="lblAuto" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="232"/>
+                    <Button x:Name="btnOpenSaveFolder" Content="Open Save Location" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="117" Click="BtnOpenSaveFolder_Click"/>
+                    <Button x:Name="btnSaving" Content="Saving" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Width="49" Click="BtnSaving_Click"/>
+                    <Button x:Name="btnAbout" Content="About" HorizontalAlignment="Left" Margin="64,68,0,0" VerticalAlignment="Top" Width="49" Click="BtnAbout_Click"/>
+                    <Button x:Name="btnEditing" Content="Editing" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" Width="49" Click="BtnEditing_Click"/>
+                    <Button x:Name="btnAutoLaunching" Content="Auto Launching" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top" Width="103" Click="BtnAutoLaunching_Click"/>
+                    <Button x:Name="btnHiding" Content="Hiding" HorizontalAlignment="Left" Margin="64,95,0,0" VerticalAlignment="Top" Width="49" Click="BtnHiding_Click"/>
+                    <Button x:Name="btnGithub" Content="Github" HorizontalAlignment="Left" Margin="10,149,0,0" VerticalAlignment="Top" Width="49" Click="BtnGithub_Click"/>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
