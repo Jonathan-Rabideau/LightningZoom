@@ -3,11 +3,11 @@ Better interface for managing Zoom meetings
 
 LightningZoom is meant to replace the current Zoom interface for easier access to multiple meetings. This is achieved by a tool that stores information about meetings and can launch Zoom directly into the meeting in a variety of ways.
 
-![image](https://user-images.githubusercontent.com/81046437/111885044-c2702e00-899b-11eb-8713-f096f4e1a65a.png)
+![image](https://user-images.githubusercontent.com/81046437/111885775-4c21fa80-89a0-11eb-90b0-ab76624ee0ec.png)
 
 To setup, click on the Edit tab. Enter meeting data such as name, start/end time, whether you want LightningZoom to automatically launch it for you without even having to press buttons, the room code, and the passcode if it is required (NOTE: the passcode needs to be hashed first and at time of writing further research is required, but it is something along the lines of getting a link from Zoom first and taking it out of the browser). Also what days the meeting will take place on and whether it repeats, seesection on auto running.
 
-![image](https://user-images.githubusercontent.com/81046437/111885775-4c21fa80-89a0-11eb-90b0-ab76624ee0ec.png)
+![image](https://user-images.githubusercontent.com/81046437/111886156-7d032f00-89a2-11eb-973d-3df0b04edd92.png)
 
 For changes to take effect Update or Add must be clicked, and for changes to persist across application closing/opening Save must be clicked, located in the Main tab. To view save location, click on the Info tab and then the conveniently placed button. The save button will outline in green when there are changes to save.
 
