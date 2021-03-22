@@ -94,6 +94,8 @@ namespace LightningZoom
             if(chkStartHidden.IsChecked == true) BtnHide_Click(null, null);
         }
 
+        #region main
+
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
             if(events != null) {
                 if(saveChanges) {
@@ -166,6 +168,8 @@ namespace LightningZoom
             return best;
         }
 
+        #endregion
+
         #region auto launching
 
         private void CheckAutoLaunch() {
@@ -200,7 +204,7 @@ namespace LightningZoom
 
         private void DailyAutoCheck() {
             CheckAutoLaunch();
-            Task.Delay(new Time(1,0).ToDateTime().AddDays(1) - DateTime.Now).ContinueWith(x=>DailyAutoCheck());
+            Task.Delay(new Time(0,1).ToDateTime().AddDays(1) - DateTime.Now).ContinueWith(x=>DailyAutoCheck());
         }
 #endregion
 
@@ -258,11 +262,12 @@ namespace LightningZoom
                 }
             }
             if(current == null) lblAuto.Content = "No event is selected";
-            else if(!current.autostart) lblAuto.Content = "This event is not set to auto start";
             else if(!current.IsToday()) lblAuto.Content = "This event is not set for today";
+            else if(!current.autostart) lblAuto.Content = "This event is not set to auto start";
             else if(current.time.ToDateTime() < DateTime.Now) lblAuto.Content = "This event is already passed";
             else if(current.autoRun == null) lblAuto.Content = "This event is not scheduled to run";
             else lblAuto.Content = "This event will start at " + current.autoRunTime;
+            lblError.Content = "";
         }
 
         private void BtnUpdate_Click(object sender, RoutedEventArgs e) {
@@ -319,7 +324,8 @@ namespace LightningZoom
         private bool validate() {
             string msg = ""; int a;
             if(chkAutoStart.IsChecked == false) txtAutoStart.Text = "0";
-            if(txtName.Text.Contains("\n")) { msg = "Name field has illegal characters (return)"; txtName.Focus(); } 
+            if(txtName.Text.Contains("\n")) { msg = "Name field has illegal characters (return)"; txtName.Focus(); }
+            else if(string.IsNullOrWhiteSpace(txtName.Text)) { msg = "Event must have a name"; txtName.Focus(); }
             else if(!int.TryParse(txtAutoStart.Text, out a)) { msg = "Auto start time field did not evaluate to an integer"; txtAutoStart.Focus(); }
             else if(!Time.CheckFormat(txtStartTime.Text)) { msg = "Start time field did not evaluate to a valid time"; txtStartTime.Focus(); }
             else if(!Time.CheckFormat(txtEndTime.Text)) { msg = "End time field did not evaluate to a valid time"; txtEndTime.Focus(); }
@@ -411,6 +417,8 @@ namespace LightningZoom
             }
         }
 
+        #region help
+
         private void BtnOpenSaveFolder_Click(object sender, RoutedEventArgs e) {
             string path = saveFilePath.Substring(0, saveFilePath.LastIndexOf('\\'));
             if(!Directory.Exists(path)) Directory.CreateDirectory(path);
@@ -418,7 +426,7 @@ namespace LightningZoom
         }
 
         private void BtnAbout_Click(object sender, RoutedEventArgs e) {
-            MessageBox.Show("LightingZoom v1.0 Updated 3/20/2021"+
+            MessageBox.Show("LightingZoom v1.0 Updated 3/22/2021"+
                 "\r\n\r\nCopyright 2021 Jonathan Rabideau\r\nunder GNU General Public License" +
                 "\r\n\r\nLightningZoom is a utility intended\r\nto redesign the Zoom interface.\r\nIt allows management of external"+
                 "\r\nmeetings and can launch them\r\nin one click or fully hands free.",
@@ -493,5 +501,7 @@ namespace LightningZoom
                 Clipboard.SetText(@"https://github.com/Jonathan-Rabideau/LightningZoom");
             }
         }
+
+        #endregion
     }
 }

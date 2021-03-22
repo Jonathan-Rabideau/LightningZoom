@@ -26,9 +26,14 @@
         </Style>
     </Window.Resources>
     <Grid x:Name="grdWrapper" Background="Silver" LayoutUpdated="grdWrapper_LayoutUpdated">
-        <ListBox x:Name="list" Margin="10,10,0,0" HorizontalAlignment="Left" Width="140" Height="213" VerticalAlignment="Top" SelectionChanged="List_SelectionChanged"/>
-        <Label x:Name="lblError" Content=""  Margin="0,221,0,0" VerticalAlignment="Top" Height="19" Padding="15,0" FontStyle="Italic" Foreground="Red"/>
-        <TabControl HorizontalAlignment="Left" Height="213" Margin="155,10,0,0" VerticalAlignment="Top" Width="262">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="155"/>
+            <ColumnDefinition Width="255*"/>
+        </Grid.ColumnDefinitions>
+        <GridSplitter Grid.Column="0" Width="2"  ResizeBehavior="CurrentAndNext"/>
+        <ListBox x:Name="list" Margin="10,10,5,24" SelectionChanged="List_SelectionChanged"/>
+        <Label x:Name="lblError" Grid.Column="1" Content=""  Margin="5,0,0,5" VerticalAlignment="Bottom" Height="19" Padding="10,0" FontStyle="Italic" Foreground="Red" Grid.ColumnSpan="2"/>
+        <TabControl  Margin="5,10,10,24" Grid.Column="1">
             <TabItem Header="Main">
                 <Grid Background="Silver">
                     <Button x:Name="btnLaunch" Content="Launch" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="58" Click="BtnLaunch_Click"/>
@@ -44,7 +49,7 @@
             </TabItem>
             <TabItem Header="Edit">
                 <Grid Background="Silver">
-                    <CheckBox x:Name="chkRepeat" Content="Repeat" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="79" ToolTip="If it autostarts and this is off, it will uncheck the day below"/>
+                    <CheckBox x:Name="chkRepeat" Content="Repeat" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="79" ToolTip="If this is off, it will uncheck the day below when it autostarts"/>
                     <CheckBox x:Name="chkSun" Content="Sunday" HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top" Width="79"/>
                     <CheckBox x:Name="chkMon" Content="Monday" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Width="79"/>
                     <CheckBox x:Name="chkTue" Content="Tuesday" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" Width="79"/>
