@@ -2,6 +2,7 @@
 Better interface for managing Zoom meetings
 
 Platform: Windows, .NET.    Tested on Windows 7 and 10
+Requires Zoom https://zoom.us/download
 
 LightningZoom is meant to replace the current Zoom interface for easier access to multiple meetings. This is achieved by a tool that stores information about meetings and can launch Zoom directly into the meeting in a variety of ways.
 
